@@ -1,0 +1,67 @@
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%; 
+}
+html>body #wrap {height:100%;}
+#header {
+	width:100%;
+	height:5em;
+}
+html>body #header {
+	position:fixed;
+	z-index:10; 
+}
+html>body #content-wrap {height:100%;} 
+html>body #content {padding:6em 1em;} 
+#footer {
+	width:100%;
+	height:5em;
+}
+html>body #footer {
+	position:fixed;
+	bottom:0;
+	z-index:10; 
+}
+
+html,
+body {
+	color:white;
+	background:#ffcb60 fixed;
+}
+body {
+	font:76%/1.5 "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+}
+
+a:link,
+a:visited {
+	border-bottom:1px dotted;
+	font-weight:bold;
+	text-decoration:none;
+	color: white;
+}
+a:focus,
+a:hover {
+	border-bottom-style:solid;
+	color:#111;
+}
+
+#header {
+	color:#111;
+	background:#fc5d5d;
+	text-align:center;
+}
+#footer {
+	color:#fc5d5d;
+	text-align:center;
+}
+
+#content-wrap,
+#content {
+	background:white;
+}
+
+#footer a {
+	color:black;
+}
