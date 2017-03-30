@@ -17,7 +17,7 @@ session_start();
 			padding-top: 3em;
 			padding-bottom: 3em;
 			/* padding: 0.35em 0.625em 0.75em;*/
-			width: 70%;
+			width: 80%;
 			height: 25em;
 			overflow-x: hidden;
 		}
@@ -25,11 +25,11 @@ session_start();
 		select {
 			display: block;
 			height: auto;
-			width: 70%;
+			width: 80%;
 			background: #ffffff;
-			border: 1px solid rgba(34, 36, 38, 0.15);
+			border: 1px solid grey;
 			border-radius: 0.28571429rem;
-			box-shadow: 0em 0em 0em 0em transparent inset;
+			box-shadow: 0em 0em 0em 0em grey inset;
 			padding: 0.62em 1em;
 			color: rgba(0, 0, 0, 0.87);
 			-webkit-transition: color 0.1s ease, border-color 0.1s ease;
@@ -38,7 +38,7 @@ session_start();
 		select.dropdown {
 			height: 38px;
 			padding: 0.5em;
-			border: 1px solid rgba(34, 36, 38, 0.15);
+			border: 1px solid grey;
 			visibility: visible;
 		}
 	</style>
@@ -65,7 +65,7 @@ session_start();
 						<h1>Renseignements</h1>
 						<div class="fieldset1">
 
-							<form method="POST" action="../Php/basededonne.php">
+							<form method="POST" action="../Php/basededonne.php" enctype="multipart/form-data">
 								<label style="padding-top: 2em;">Services Proposees</label>
 								<div style="padding: 1em 20em;">
 									<select class="dropdown" name="servi">
@@ -80,7 +80,7 @@ session_start();
 									</div>
 									<label>Rayon de Couverture</label>
 									<div style="padding: 1em 20em;">
-										<select class="dropdown" multiple="multiple"  size="20" name="couverture[]">
+										<select class="dropdown" name="couverture">
 											<?php
 											$query2="select*from zoneCouverture";
 											$result2=mysql_query($query2);
@@ -94,7 +94,7 @@ session_start();
 
 										<label>Marge Prix</label>	
 										<div style="padding: 1em 20em;">
-											<input type="number" placeholder="prix" style="width: 55%" name="price">
+											<input type="number" placeholder="prix" style="width: 55%" name="price" required="required">
 										</div style="padding: 1em 20em;">
 										<label style="color: black;">Mot de passe</label>	
 						                <div style="padding: 1em 10em;">
@@ -102,7 +102,10 @@ session_start();
 							               <input type="password" name="pwd" placeholder="password"/>
 							               <!--<input type="text" name="nom1" required="required" placeholder="votre nom"><br>-->
 						                </div>
-
+						                <label style="color: black;">selectionner une photo:</label>
+                                         <div style="padding: 1em 10em;">
+                                         <input type="file" value="selectionner une photo" name="photo">
+                                         </div>
 										<div style=" margin-left: 35em;margin-top: 2em;">
 											<button class="button" style="width: 10em;" type="submit">Valider</button>
 										</div>

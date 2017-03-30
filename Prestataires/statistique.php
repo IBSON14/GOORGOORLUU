@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
@@ -100,87 +103,48 @@
 		                  			<span>Parametres</span>
 		                  		</a>
 			                </li>
+			             <form action="../Php/basededonne.php" method="POST">
+		                 <button type="submit" name="deconnex" style="width: 50%; background-color:#fc5d5d; margin: auto; color: white; padding: 12px; 
+		                  margin-top:90%; float: right;">DECONNEXION</button>
+		                 </form>
 			            </ul>
 			    	</div>
 			</div>
-
+          <?php
+           $user='root';
+	                 $password='';
+	                 $serveur='localhost';
+	                 $bdd='goorgoorluu';
+	                 if(mysql_connect('localhost','root','')>0){
+		             if(mysql_select_db('goorgoorluu')){ 
+		             	$query1="select moyenne from prestataire where login='".$_SESSION['login']."'";
+		             	$result1=mysql_query($query1);
+		             	if($ligne1=mysql_fetch_row($result1)){
+          ?>
 			<div id="content">
 				<div class="fieldset1">
 					<div style="float: right;">
-						<label style="background: #fc5d5d;border-radius: 1em">Note</label><input type="text" name="" style="height: 1.8em;" placeholder="/20" />		
+						<label style="background: #fc5d5d;border-radius: 1em"><?php echo $ligne1[0];?></label><input type="text" name="" style="height: 1.8em;" placeholder="/20" />		
 					</div>
 					<div class="dividing" style="margin-top: 5em;">	</div>
 					<div class="field">
+					 <?php }
+		             $query="select nom,prenom,moyenne,photo from prestataire where service in(select service from prestataire where login='"
+		             .$_SESSION['login']."') order by moyenne desc";
+		             $result=mysql_query($query);
+		             while($ligne=mysql_fetch_row($result)){
+					 ?>
 						<div class=" feed">
 							<div class="event">
 							    <div class="label">
-							      <img src="/images/avatar/small/elliot.jpg">
-							    </div>
-							    <div class="content">
-							      Nom Prestataire <strong> Note : </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
+							      <img src="<?php echo '../images/profiles/'.$ligne[3];?>" style="width: 10%; height: 100%;">
+							      <?php echo $ligne[0]."--".$ligne[1];?>:<strong><?php echo $ligne[2]; ?>: </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
 							    </div>
 							</div>
 						</div>
-						<div class=" feed">
-							<div class="event">
-							    <div class="label">
-							      <img src="/images/avatar/small/elliot.jpg">
-							    </div>
-							    <div class="content">
-							      Nom Prestataire <strong> Note : </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
-							    </div>
-							</div>
-						</div>
-						<div class=" feed">
-							<div class="event">
-							    <div class="label">
-							      <img src="/images/avatar/small/elliot.jpg">
-							    </div>
-							    <div class="content">
-							      Nom Prestataire <strong> Note : </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
-							    </div>
-							</div>
-						</div>
-						<div class=" feed">
-							<div class="event">
-							    <div class="label">
-							      <img src="/images/avatar/small/elliot.jpg">
-							    </div>
-							    <div class="content">
-							      Nom Prestataire <strong> Note : </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
-							    </div>
-							</div>
-						</div>
-						<div class=" feed">
-							<div class="event">
-							    <div class="label">
-							      <img src="/images/avatar/small/elliot.jpg">
-							    </div>
-							    <div class="content">
-							      Nom Prestataire <strong> Note : </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
-							    </div>
-							</div>
-						</div>
-						<div class=" feed">
-							<div class="event">
-							    <div class="label">
-							      <img src="/images/avatar/small/elliot.jpg">
-							    </div>
-							    <div class="content">
-							      Nom Prestataire <strong> Note : </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
-							    </div>
-							</div>
-						</div>
-						<div class=" feed">
-							<div class="event">
-							    <div class="label">
-							      <img src="/images/avatar/small/elliot.jpg">
-							    </div>
-							    <div class="content">
-							      Nom Prestataire <strong> Note : </strong> <!-- <input type="text" name="" style="width: 2.5em;"> -->
-							    </div>
-							</div>
-						</div>
+					<?php }
+				}
+				}?>
 					</div>								
 			</div>
 
