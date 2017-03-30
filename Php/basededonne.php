@@ -18,12 +18,12 @@ session_start();
 			//inscrire un prestataire
 			if(isset($_REQUEST['nom']) AND isset($_REQUEST['prenom']) AND isset($_REQUEST['adresse']) AND
 				isset($_REQUEST['tel'])){
-
-				$query="insert into prestataire(nom,prenom,adresse,tel) values('".$_REQUEST['nom']."','".$_REQUEST['prenom']."','"
-			.$_REQUEST['adresse']."','".$_REQUEST['tel']."')";
+                $default="default.png";
+				$query="insert into prestataire(nom,prenom,adresse,tel,photo) values('".$_REQUEST['nom']."','".$_REQUEST['prenom']."','"
+			.$_REQUEST['adresse']."','".$_REQUEST['tel']."','".$default."')";
 			$result=mysql_query($query);
 			if($result){
-				$_SESSION['name']=$_REQUEST['nom'];
+				$_SESSION['tel']=$_REQUEST['tel'];
 				header('location:../Prestataires/renseignement.php');
 			}
 			else{
@@ -32,10 +32,14 @@ session_start();
 		}//fin de l'inscription
 		// completer renseignement
 		if(isset($_POST['servi'])AND isset($_POST['couverture']) AND isset($_POST['log']) AND isset($_POST['log']) AND isset($_POST['price'])){
-			$zone="";
-			foreach($_POST['couverture'] as $couv){ $zone=$zone.$couv."$";}
-			$query="update prestataire set login='".$_POST['log']."',password='".$_POST['pwd']."',service='".$_POST['servi']."',margePrix='"
-			.$_POST['price']."',rayonCouverture='".$zone."' where nom='".$_SESSION['name']."'";
+			$dossier="../images/profiles/";
+			$fiche="default.png";
+			if(!empty($_FILES["photo"]["name"])){
+            $fiche=$_FILES["photo"]["name"];
+            copy($_FILES["photo"]["tmp_name"],$dossier.$fiche);
+            }
+			$query="update prestataire set login='".$_POST['log']."',password='".sha1($_POST['pwd'])."',service='".$_POST['servi']."',margePrix='"
+			.$_POST['price']."',rayonCouverture='".$_POST['couverture']."',photo='".$fiche."' where tel='".$_SESSION['tel']."'";
 			var_dump($query);
 			$result=mysql_query($query);
 			if($result){
@@ -50,7 +54,7 @@ session_start();
 		//connexion
 		if(isset($_REQUEST['logi']) AND isset($_REQUEST['pwd1']) AND isset($_REQUEST['connex'])){
 		
-		$query="select*from prestataire where login='".$_REQUEST['logi']."' and password='".$_REQUEST['pwd1']."'";
+		$query="select*from prestataire where login='".$_REQUEST['logi']."' and password='".sha1($_REQUEST['pwd1'])."'";
         $result=mysql_query($query);
 		if($ligne=mysql_fetch_row($result)){
 			$_SESSION['login']=$_REQUEST['logi'];
@@ -61,6 +65,7 @@ session_start();
 			header("location:../Prestataires/mainPrestataire.php");
 		}
 	}
+
 	}
 }
 ?>
